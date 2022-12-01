@@ -1,0 +1,19 @@
+//
+//  NSAttributedString.swift
+//  7daysofcode
+//
+//  Created by Luiz Hartmann on 01/12/22.
+//
+
+import UIKit
+
+extension NSAttributedString {
+    func withLineSpacing(_ spacing: CGFloat) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = spacing
+        let attrString = NSMutableAttributedString(string: string)
+        attrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: string.count))
+        return NSAttributedString(attributedString: attrString)
+        //eturn attrString
+    }
+}
