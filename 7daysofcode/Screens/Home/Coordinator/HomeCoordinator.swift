@@ -8,14 +8,20 @@
 import UIKit
 
 class HomeCoordinator: Coordinator {
-    
     var navigationController: UINavigationController
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
         let viewController = HomeViewController()
+        viewController.coordinator = self
         self.navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func didSelect(popularModel: PopularModel) {
+        let coordinator = DetailCoordinator(navigationController: navigationController, viewModel: DetailViewModel(popularModel: popularModel))
+        coordinator.start()
     }
 }
