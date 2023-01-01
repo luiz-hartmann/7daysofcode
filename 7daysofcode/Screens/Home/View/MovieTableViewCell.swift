@@ -1,5 +1,5 @@
 //
-//  HomeCell.swift
+//  MovieTableViewCell.swift
 //  7daysofcode
 //
 //  Created by Luiz Hartmann on 29/11/22.
@@ -8,24 +8,26 @@
 import UIKit
 import Kingfisher
 
-class HomeCell: UITableViewCell {
+class MovieTableViewCell: UITableViewCell {
     
-    static let identifier = "HomeCell"
+    private var viewModel: MovieCellViewModel?
+    static let identifier = "MovieTableViewCell"
     
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 28
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .systemRed
+        imageView.backgroundColor = .secondarySystemBackground
         return imageView
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
         label.font = .boldSystemFont(ofSize: 16)
+        label.numberOfLines = 0
+        label.textColor = .white
         return label
     }()
     
@@ -55,16 +57,18 @@ class HomeCell: UITableViewCell {
         return stackView
     }()
     
-    func configure(model: PopularModel) {
-        titleLabel.text = model.title
-        releaseDateLabel.text = "Lançamento: \(model.releaseDate.dateFormatter())"
-        guard let imageURL = model.image else { return }
-        logoImageView.configureImage(imageURL)
-    }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
+        buildView()
+    }
+    
+    func configure(movie: Movie) {
+        viewModel = MovieCellViewModel(movie: movie)
+        titleLabel.text = viewModel?.title
+        releaseDateLabel.text = viewModel?.releaseDate
+        
+        guard let imageURL = viewModel?.image else { return }
+        logoImageView.configureImage(imageURL)
     }
     
     required init?(coder: NSCoder) {
@@ -72,8 +76,7 @@ class HomeCell: UITableViewCell {
     }
 }
 
-extension HomeCell: Viewcode {
-    
+extension MovieTableViewCell: Viewcode {
     func buildViewHierarchy() {
         addSubview(stackView)
     }
