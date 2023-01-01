@@ -21,7 +21,7 @@ O projeto permite verificar quais são os filmes mais populares no momento, em o
 
 ## 📁 Acesso ao projeto
 
-Você pode acessar o [código fonte do projeto](https://github.com/alura-cursos/7daysofcode-ios), [baixá-lo](https://github.com/alura-cursos/7daysofcode-ios/archive/refs/heads/main.zip) ou até mesmo acessar o código por cada dia do desafio nas respectivas `branches`.
+Você pode acessar o [código fonte do projeto](https://github.com/luiz-hartmann/7daysofcode), [baixá-lo](https://github.com/luiz-hartmann/7daysofcode/archive/refs/heads/master.zip) ou até mesmo acessar o código por cada dia do desafio nas respectivas `branches`.
 
 ## 🛠️ Abrir e rodar o projeto
 
