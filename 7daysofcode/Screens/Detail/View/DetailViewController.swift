@@ -10,17 +10,27 @@ import UIKit
 class DetailViewController: UIViewController {
     
     // MARK: - Properties
-    var viewModel: DetailViewModel?
-    weak var coordinator: DetailCoordinator?
+    private let viewModel: DetailViewModel?
     
+    // MARK: - Initialization
+    init(viewModel: DetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        buildView()
         configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(false)
         self.view.setupGradientBackground()
     }
     
@@ -59,7 +69,8 @@ class DetailViewController: UIViewController {
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14, weight: .medium)
         return label
-    }()    
+    }()
+    
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel,
                                                        imageView,
@@ -72,10 +83,12 @@ class DetailViewController: UIViewController {
         stackView.spacing = 25
         return stackView
     }()
-    
-    func configure() {
-        self.titleLabel.text = viewModel?.title
-        ratingLabel.text = "Classificação dos usuários: \( viewModel?.voteAverage ?? 0)"
+}
+
+extension DetailViewController {
+    private func configure() {
+        titleLabel.text = viewModel?.title
+        ratingLabel.text = viewModel?.voteAverage
         descriptionLabel.text = viewModel?.overview
         
         guard let imageURL = viewModel?.image else { return }
@@ -83,22 +96,20 @@ class DetailViewController: UIViewController {
     }
 }
 
+// MARK: - Setup Viewcode
 extension DetailViewController: Viewcode {
-    
     func buildViewHierarchy() {
         view.addSubview(stackView)
     }
     
     func addConstraints() {
         NSLayoutConstraint.activate([
-            
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             imageView.widthAnchor.constraint(equalToConstant: 190),
             imageView.heightAnchor.constraint(equalToConstant: 250),
-            
         ])
     }
     

@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Client: HTTPClientProtocol {
-    func getPopular(completion: @escaping (Result<PopularResponse, HTTPError>) -> Void) {
+class ApiClient: HTTPClientProtocol {
+    func getPopular(completion: @escaping (Result<MovieResponse, HTTPError>) -> Void) {
         let route = HTTPRequest(baseURL: "https://api.themoviedb.org", path: "/3/movie/popular?", method: .get)
         request(request: route.request, completion: completion)
     }

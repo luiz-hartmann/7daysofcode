@@ -7,21 +7,24 @@
 
 import UIKit
 
-class HomeCoordinator: Coordinator {
-    var navigationController: UINavigationController
+protocol HomeFlow: AnyObject {
+    func didSelect(with movie: Movie)
+}
+
+final class HomeCoordinator: Coordinator, HomeFlow {
+    let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        let viewController = HomeViewController()
-        viewController.coordinator = self
-        self.navigationController.pushViewController(viewController, animated: true)
+        let viewController = HomeViewController(coordinator: self, viewModel: MovieViewModel())
+        navigationController.pushViewController(viewController, animated: true)
     }
     
-    func didSelect(popularModel: PopularModel) {
-        let coordinator = DetailCoordinator(navigationController: navigationController, viewModel: DetailViewModel(popularModel: popularModel))
-        coordinator.start()
+    func didSelect(with movie: Movie) {
+        let coordinator = DetailCoordinator(navigationController: navigationController)
+        coordinator.start(with: movie)
     }
 }

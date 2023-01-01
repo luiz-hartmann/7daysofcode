@@ -1,5 +1,5 @@
 //
-//  PopularModel.swift
+//  Movie.swift
 //  7daysofcode
 //
 //  Created by Luiz Hartmann on 29/11/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PopularModel: Codable {
+struct Movie: Codable {
     let id: Int
     let title: String
     let releaseDate: String
@@ -25,6 +25,6 @@ struct PopularModel: Codable {
     }
 }
 
-struct PopularResponse: Codable {
-    let results: [PopularModel]
+struct MovieResponse: Codable {
+    let results: [Movie]
 }

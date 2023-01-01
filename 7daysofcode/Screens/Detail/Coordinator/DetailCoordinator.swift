@@ -7,19 +7,17 @@
 
 import UIKit
 
-class DetailCoordinator: Coordinator {
-    var navigationController: UINavigationController
-    private var viewModel: DetailViewModel?
-    
-    init(navigationController: UINavigationController, viewModel: DetailViewModel) {
+final class DetailCoordinator: Coordinator {
+    let navigationController: UINavigationController
+
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.viewModel = viewModel
     }
     
-    func start() {
-        let viewController = DetailViewController()
-        viewController.coordinator = self
-        viewController.viewModel = viewModel
-        self.navigationController.pushViewController(viewController, animated: true)
+    func start() { }
+    
+    func start(with movie: Movie) {
+        let viewController = DetailViewController(viewModel: DetailViewModel(movie: movie))
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

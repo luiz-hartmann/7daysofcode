@@ -1,26 +1,26 @@
 //
-//  DetailViewModel.swift
+//  MovieCellViewModel.swift
 //  7daysofcode
 //
-//  Created by Luiz Hartmann on 30/11/22.
+//  Created by Luiz Hartmann on 01/01/23.
 //
 
 import Foundation
 
-struct DetailViewModel {
+struct MovieCellViewModel {
     
     var movie: Movie?
     
     init(movie: Movie) {
         self.movie = movie
     }
-
+    
     var title: String {
         return movie?.title ?? String.empty
     }
     
     var releaseDate: String {
-        return movie?.releaseDate ?? String.empty
+        return "Lançamento: \(movie?.releaseDate.dateFormatter() ?? String.empty)"
     }
     
     var image: String {
@@ -31,7 +31,7 @@ struct DetailViewModel {
         return movie?.overview ?? String.empty
     }
     
-    var voteAverage: String {
-        return "Classificação dos usuários: \(movie?.voteAverage ?? 0)"
+    var voteAverage: Double {
+        return movie?.voteAverage ?? 0
     }
 }

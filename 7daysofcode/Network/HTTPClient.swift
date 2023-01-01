@@ -12,6 +12,16 @@ protocol HTTPClientProtocol {
                                completion: @escaping (Result<T, HTTPError>) -> Void)
 }
 
+enum HTTPError: String, Error {
+    case missingData
+    case badStatusCode
+    case parseError
+}
+
+enum HTTPMethod: String {
+    case get = "GET"
+}
+
 extension HTTPClientProtocol {
     private func decodingData<T: Decodable>(request: URLRequest,
                                             decodingType: T.Type?,
